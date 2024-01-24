@@ -1,0 +1,68 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor;
+@model IEnumerable<QuickKartCoreMvcApp.Models.Products>
+
+@{
+    ViewData["Title"] = "ViewProducts";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+<div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        Welcome  <strong>@httpContextaccessor.HttpContext.Session.GetString("username")</strong>
+    </div>
+</div>
+
+<h1>ViewProducts</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityAvailable)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityAvailable)
+            </td>
+            <td>
+                    @Html.ActionLink("Update", "UpdateProduct", item) |
+               
+                    @Html.ActionLink("Delete", "DeleteProduct", new { ProductId = item.ProductId, ProductName = item.ProductName, CategoryId = item.CategoryId, Price = item.Price, QuantityAvailable = item.QuantityAvailable })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
